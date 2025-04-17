@@ -1,0 +1,28 @@
+name: all_tasks_5hz
+
+shape_meta: &shape_meta
+  # acceptable types: rgb, low_dim
+  obs:
+    hand_point_cloud:
+      shape: [1024, 3]
+      type: point_cloud
+    object_point_cloud:
+      shape: [1024, 3]
+      type: point_cloud
+    joint_state:
+      shape: [22]
+      type: low_dim
+  joint_action:
+    shape: [22]
+  contact_map:
+    shape: [1024]
+
+dataset:
+  _target_: CordViP.dataset.robot_dataset.RobotDataset
+  zarr_path: /home/fqx/RoboTwin/policy/CoDP/CoDP/data/all_tasks_5hz_160.zarr
+  horizon: ${horizon}
+  pad_before: ${eval:'${n_obs_steps}-1'}
+  pad_after: ${eval:'${n_action_steps}-1'}
+  seed: 0
+  val_ratio: 0.02
+  max_train_episodes: null

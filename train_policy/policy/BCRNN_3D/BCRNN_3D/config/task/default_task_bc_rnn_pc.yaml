@@ -1,0 +1,22 @@
+name: task_config
+
+shape_meta: &shape_meta
+  obs:
+    point_cloud:
+      shape: [1024, 3]
+      type: point_cloud
+    joint_state:
+      shape: [22]
+      type: low_dim
+  joint_action:
+    shape: [22]
+
+dataset:
+  _target_: BCRNN_3D.dataset.robot_pc_dataset.RobotPointCloudDataset
+  zarr_path: 
+  horizon: ${horizon}
+  pad_before: ${eval:'${n_obs_steps}-1'}
+  pad_after: ${eval:'${n_action_steps}-1'}
+  seed: 42
+  val_ratio: 0.02
+  max_train_episodes: 90
