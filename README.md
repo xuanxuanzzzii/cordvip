@@ -7,7 +7,8 @@
 
 [Yankai Fu](https://github.com/AureleoPKU)\*, [Qiuxuan Feng](https://github.com/xuanxuanzzzii)\*, [Ning Chen](https://github.com/ccdcs)*, [Zichen Zhou](https://bochiman.github.io/), [Mengzhen Liu](/lmz), [Mingdong Wu](https://aaronanima.github.io/), [Tianxing Chen](https://tianxingchen.github.io/), [Shanyu Rong](https://rainfallsdown.github.io/),  [Jiaming Liu](https://liujiaming1996.github.io/), [Hao Dong](https://zsdonghao.github.io/), [Shanghang Zhang](https://www.shanghangzhang.com)
 
-</div>
+
+
 We propose **CordViP**🤖, a correspondence-based visuomotor policy for dexterous manipulation in the real world.
 
 ## ✨ News ✨
@@ -68,10 +69,6 @@ pip install pytorch_kinematics==0.7.4
 
 <details>
 <summary>1. Prepare a conda environment</summary>
-```bash
-conda create -n CordViP python=3.8
-conda activate CordViP
-```
 
 
 ```bash
@@ -92,9 +89,6 @@ cd act/detr && pip install -e .
 
 <details>
 <summary>2. Install pytorch3d</summary>
-```bash
-cd third_party/pytorch3d_simplified && pip install -e . && cd ../..
-```
 
 
 ```bash
@@ -177,7 +171,7 @@ cd policy/CordViP
 sh load_pretrain.sh ${task_name} ${expert_data_num} ${seed} ${gpu_id} ${num_epochs} ${checkpoint_every} ${horizon} ${n_obs_steps} ${n_action_steps} ${encoder} ${freeze_encoder}${load_checkpoint_number} ${load_checkpoint_name}
 # As example: sh load_pretrain.sh Assembly 50 42 0 20000 1000 12 4 6 pointnet false 2000 CordViP_pretrain
 # the path to load the pretrain checkpoint: ./CordViP/checkpoints/{cfg.load_checkpoint_name}/{cfg.load_checkpoint_number}.ckpt
-# 我们提供一个预训练好的checkpoint
+# We provide a pretrained checkpoint that is trained on data from four tasks: pickplace, flipcup, assembly, and artimanip.
 ```
 
 🪄**Transformer-based**
