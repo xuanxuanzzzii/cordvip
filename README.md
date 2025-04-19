@@ -118,14 +118,19 @@ refer to: https://github.com/VAST-AI-Research/TripoSR
 
 **2. Use FoundationPose and D(R,O) Grasp to track pose..**  
 
-Download all network weights from [here](https://drive.google.com/drive/folders/1DFezOAD0oD1BblsXVxqDsl8fj0qzB82i?usp=sharing) and put them under the folder `CordViP_code/generate_pc/FoundationPose/weights/`. For the refiner, you will need `2023-10-28-18-33-37`. For scorer, you will need `2024-01-11-20-02-45`.
+1. Download all network weights from [here](https://drive.google.com/drive/folders/1DFezOAD0oD1BblsXVxqDsl8fj0qzB82i?usp=sharing) and put them under the folder `generate_pc/FoundationPose/weights/`. For the refiner, you will need `2023-10-28-18-33-37`. For scorer, you will need `2024-01-11-20-02-45`.
+
+2. [Download demo data](https://drive.google.com/drive/folders/1pRyFmxYXmAnpku7nGRioZaKrVJtIsroP?usp=sharing) and extract them under the folder `generate_pc/FoundationPose/demo_data/`
+
+3. In FoundationPose, the mask of the tracked object is obtained by clicking on the object in the initial frame, and press the `q` key to start tracking..
 
 After the preparations above , simply run:
 
 ```bash
 cd CordViP_code/generate_pc/
 conda activate posetrack
-bash run.sh +{demo_idx}
+bash preprocess.sh ${demo_path} ${idx} ${mesh_path}
+# As example: bash preprocess.sh /home/alan/project/fyk/cordvip/expert_dataset/flipcup 0 assets/mesh/flipcup/combine_2.obj
 ```
 
 to generate point cloud dataset.
@@ -136,7 +141,7 @@ to generate point cloud dataset.
 
 ```bash
 conda activate CordViP
-cd CordViP_code/train_policy
+# cd CordViP_code/train_policy
 ```
 
 To go through the whole process, there are 3️⃣ necessary steps:
