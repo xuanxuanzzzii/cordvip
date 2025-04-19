@@ -47,9 +47,11 @@ conda install conda-forge::eigen=3.4.0
 export CMAKE_PREFIX_PATH="$CMAKE_PREFIX_PATH:/eigen/path/under/conda"
 
 # install dependencies
+cd generate_pc
 python -m pip install -r requirements.txt
 
 # Install NVDiffRast
+cd FoundationPose
 python -m pip install --quiet --no-cache-dir git+https://github.com/NVlabs/nvdiffrast.git
 
 # Kaolin (Optional, needed if running model-free setup)
