@@ -442,6 +442,8 @@ python eval_policy_mlp.py --ckpt_dir ${ckpt_dir} --policy_class ${policy_class} 
 # As example: python eval_policy_mlp.py --ckpt ../policy/statebase_CNNMLP/checkpoints/assembly --policy_class CNNMLP --task_name flip_cap --seed 0 --num_epoch 900
 ```
 
+## 🙏 Acknowledgement
+Our code is built upon [DP3](https://github.com/YanjieZe/3D-Diffusion-Policy), [DRO-Grasp](https://github.com/zhenyuwei2003/DRO-Grasp), [FoundationPose](https://github.com/NVlabs/FoundationPose). We thank all these authors for their nicely open sourced code and their great contributions to the community.
 
 
 ## 📜️ License

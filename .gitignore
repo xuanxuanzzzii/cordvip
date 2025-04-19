@@ -1,1 +1,3 @@
 *.pyc
+./generate_pc/temp
+./generate_pc/FoundationPose/demo_data

@@ -1,8 +1,0 @@
-model:
-  emb_dim: 512
-  latent_dim: 64
-
-  pretrain: pretrain_3robots.pth
-
-  center_pc: True
-  block_computing: True

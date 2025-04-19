@@ -69,11 +69,9 @@ class PoseEstimatorThread():
         
         logging.info("estimator initialization done")
         bridge = CvBridge() 
-        self.K  = np.array([[597.21588135, 0., 324.15087891],
-                    [ 0., 597.62249756, 237.27398682],
-                    [ 0., 0., 1. ]])
+        self.K  = np.load("./FoundationPose/camera2base/intrinsic_matrix.npy")
 
-        self.camera2base = np.load("./FoundationPose/expert_data/camera2base/20views_c2r.npy")
+        self.camera2base = np.load("./FoundationPose/camera2base/extrinsic_matrix.npy")
  
     def extract_pose_from_matrix(self, matrix):
         """get translation and quaternion"""
@@ -118,68 +116,68 @@ class PoseEstimatorThread():
 
     def run(self):
         while self.running:
-                color_image, depth_image = self.get_image()
-                if  color_image is None or depth_image is None:
-                    continue        
-                if self.prev_pose is None:
-                    open_path = f'{code_dir}/demo_data/flip_bottle/before_mask'
-                    os.makedirs(open_path, exist_ok=True)  
-                    cv2.imwrite(f'{open_path}/1.png', color_image)  
+            color_image, depth_image = self.get_image()
+            if  color_image is None or depth_image is None:
+                break   
+            if self.prev_pose is None:
+                open_path = f'{code_dir}/demo_data/flip_bottle/before_mask'
+                os.makedirs(open_path, exist_ok=True)  
+                cv2.imwrite(f'{open_path}/1.png', color_image)  
 
-                    success = self.get_mask()  
-                    if success:
-                        print('Mask processing complete.')
-                    else:
-                        print('Error occurred during mask processing.')
-                    mask_path = f'{code_dir}/demo_data/flip_bottle/mask/1.png'
-                    mask = cv2.imread(mask_path, cv2.IMREAD_GRAYSCALE)
-                    cv2.imshow('Mask', mask)
-                    if mask is None:
-                        continue
-                    pose = self.est.register(
-                        K=self.K,
-                        rgb=color_image,
-                        depth=depth_image,
-                        ob_mask=mask,
-                        iteration=self.args.est_refine_iter
-                    )
-                    self.prev_pose = pose
-                    object2camera = pose
-                    object2base = np.dot(self.camera2base, object2camera)
-                    self.prev_pose = pose
-                    self.object_pose = object2base
-                    self.save_pose_to_file(object2base)
-                    print(f'save {self.file_counter} to {self.save_folder}!')
+                success = self.get_mask()  
+                if success:
+                    print('Mask processing complete.')
                 else:
-                    pose = self.est.track_one(
-                        rgb=color_image,
-                        depth=depth_image,
-                        K=self.K,
-                        iteration=self.args.track_refine_iter
-                    )
-                    object2camera = pose
-                    object2base = np.dot(self.camera2base, object2camera)
-                    self.prev_pose = pose
-                    self.object_pose = object2base
-                    self.save_pose_to_file(object2base)
-                    print(f'save {self.file_counter} to {self.save_folder}!')
+                    print('Error occurred during mask processing.')
+                mask_path = f'{code_dir}/demo_data/flip_bottle/mask/1.png'
+                mask = cv2.imread(mask_path, cv2.IMREAD_GRAYSCALE)
+                cv2.imshow('Mask', mask)
+                if mask is None:
+                    continue
+                pose = self.est.register(
+                    K=self.K,
+                    rgb=color_image,
+                    depth=depth_image,
+                    ob_mask=mask,
+                    iteration=self.args.est_refine_iter
+                )
+                self.prev_pose = pose
+                object2camera = pose
+                object2base = np.dot(self.camera2base, object2camera)
+                self.prev_pose = pose
+                self.object_pose = object2base
+                self.save_pose_to_file(object2base)
+                print(f'save {self.file_counter} to {self.save_folder}!')
+            else:
+                pose = self.est.track_one(
+                    rgb=color_image,
+                    depth=depth_image,
+                    K=self.K,
+                    iteration=self.args.track_refine_iter
+                )
+                object2camera = pose
+                object2base = np.dot(self.camera2base, object2camera)
+                self.prev_pose = pose
+                self.object_pose = object2base
+                self.save_pose_to_file(object2base)
+                print(f'save {self.file_counter} to {self.save_folder}!')
 
-                if self.debug >= 1:
-                    center_pose = pose @ np.linalg.inv(self.to_origin)
-                    vis = draw_posed_3d_box(self.K, img=color_image, ob_in_cam=center_pose, bbox=self.bbox)
-                    vis = draw_xyz_axis(
-                        vis,
-                        ob_in_cam=center_pose,
-                        scale=0.1,
-                        K=self.K,
-                        thickness=3,
-                        transparency=0,
-                        is_input_rgb=True
-                    )
-                    cv2.imshow('Pose Estimation', vis)
-                    key = cv2.waitKey(1)
-                    if key & 0xFF == 27:  
-                        break
+            if self.debug >= 1:
+                center_pose = pose @ np.linalg.inv(self.to_origin)
+                vis = draw_posed_3d_box(self.K, img=color_image, ob_in_cam=center_pose, bbox=self.bbox)
+                vis = draw_xyz_axis(
+                    vis,
+                    ob_in_cam=center_pose,
+                    scale=0.1,
+                    K=self.K,
+                    thickness=3,
+                    transparency=0,
+                    is_input_rgb=True
+                )
+                cv2.imshow('Pose Estimation', vis)
+                key = cv2.waitKey(1)
+                if key & 0xFF == 27:  
+                    break
 
     def stop(self):
         self.running = False
@@ -240,5 +238,4 @@ if __name__ == '__main__':
     args = parser.parse_args()
     pose_estimator = PoseEstimatorThread(args)
     pose_estimator.run() 
-    app.run(host='127.0.0.1', port=5001)
    
