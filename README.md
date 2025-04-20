@@ -74,13 +74,11 @@ pip install pytorch_kinematics==0.7.4
 <summary>1. Prepare a conda environment</summary>
 
 
+
 ```bash
 conda create -n CordViP python=3.8
 conda activate CordViP
 cd CordViP_code/train_policy
-```
-
-```bash
 pip install torch==2.4.0 torchvision==0.19.0 torchaudio==2.4.0 --index-url https://download.pytorch.org/whl/cu118
 
 pip install sapien==3.0.0b1 scipy==1.10.1 mplib==0.1.1 gymnasium==0.29.1 trimesh==4.4.3 open3d==0.18.0 imageio==2.34.2 pydantic openai huggingface_hub==0.25.0 zarr==2.12.0 wandb ipdb gpustat dm_control omegaconf hydra-core==1.2.0 dill==0.3.5.1 einops==0.4.1 diffusers==0.11.1 numba==0.56.4 moviepy imageio av matplotlib termcolor robomimic easydict
@@ -92,6 +90,7 @@ cd act/detr && pip install -e .
 
 <details>
 <summary>2. Install pytorch3d</summary>
+
 
 
 ```bash
@@ -211,8 +210,8 @@ sh eval.sh ${task_name} ${expert_data_num} ${checkpoint_num} ${seed} ${gpu_id} $
 🪄**Transformer-based**
 
 ```bash
-python eval_policy_act_3d_ours.py --ckpt_dir ${ckpt_dir} --policy_class ${policy_class} --task_name ${task_name} --seed ${seed} --num_epochs ${num_epochs}
-# As example: python eval_policy_act_3d_ours.py --ckpt_dir ../policy/act_3d_ours/checkpoints/assembly --policy_class ACT --task_name assembly --seed 0 --num_epochs 2000
+python eval_policy_act_3d_ours.py --dir ${dir} --ckpt_dir ${ckpt_dir} --policy_class ${policy_class} --task_name ${task_name} --seed ${seed} --num_epochs ${num_epochs}
+# As example: python eval_policy_act_3d_ours.py --dir ../policy/act_3d_ours/checkpoints/assembly --ckpt_dir ../policy/act_3d_ours/checkpoints/assembly --policy_class ACT --task_name assembly --seed 0 --num_epochs 2000
 ```
 
 
@@ -359,8 +358,8 @@ sh train.sh
 Run the following code to evaluate ACT for a specific task:
 
 ```bash
-python eval_policy_act.py --ckpt_dir ${ckpt_dir} --policy_class ${policy_class} --task_name ${task_name} --seed ${seed} --num_epochs ${num_epochs}
-# As example: python eval_policy_act.py --ckpt_dir ../policy/act/checkpoints/assembly --policy_class ACT --task_name assembly --seed 0 --num_epochs 2000
+python eval_policy_act.py --dir ${dir} --ckpt_dir ${ckpt_dir} --policy_class ${policy_class} --task_name ${task_name} --seed ${seed} --num_epochs ${num_epochs}
+# As example: python eval_policy_act.py --dir ../policy/act/checkpoints/assembly --ckpt_dir ../policy/act/checkpoints/assembly --policy_class ACT --task_name assembly --seed 0 --num_epochs 2000
 ```
 
 ## 6. ACT 3D
@@ -390,8 +389,8 @@ sh train.sh
 Run the following code to evaluate ACT 3D for a specific task:
 
 ```bash
-python eval_policy_act_3d.py --ckpt_dir ${ckpt_dir} --policy_class ${policy_class} --task_name ${task_name} --seed ${seed} --num_epochs ${num_epochs}
-# As example: python eval_policy_act_3d.py --ckpt_dir ../policy/act+3d/checkpoints/assembly --policy_class ACT --task_name assembly --seed 0 --num_epochs 2000
+python eval_policy_act_3d.py --dir ${dir} --ckpt_dir ${ckpt_dir} --policy_class ${policy_class} --task_name ${task_name} --seed ${seed} --num_epochs ${num_epochs}
+# As example: python eval_policy_act_3d.py --dir ../policy/act+3d/checkpoints/assembly --ckpt_dir ../policy/act+3d/checkpoints/assembly --policy_class ACT --task_name assembly --seed 0 --num_epochs 2000
 ```
 
 ## 7. State-base Diffusion Policy
@@ -445,11 +444,12 @@ sh train.sh
 Run the following code to evaluate state-base cnnmlp for a specific task:
 
 ```bash
-python eval_policy_mlp.py --ckpt_dir ${ckpt_dir} --policy_class ${policy_class} --task_name ${task_name} --seed ${seed} --num_epochs ${num_epochs}
-# As example: python eval_policy_mlp.py --ckpt ../policy/statebase_CNNMLP/checkpoints/assembly --policy_class CNNMLP --task_name flip_cap --seed 0 --num_epoch 900
+python eval_policy_mlp.py --dir ${dir} --ckpt_dir ${ckpt_dir} --policy_class ${policy_class} --task_name ${task_name} --seed ${seed} --num_epochs ${num_epochs}
+# As example: python eval_policy_mlp.py --dir ../policy/statebase_CNNMLP/checkpoints/assembly --ckpt_dir ../policy/statebase_CNNMLP/checkpoints/assembly --policy_class CNNMLP --task_name flip_cap --seed 0 --num_epoch 900
 ```
 
 ## 🙏 Acknowledgement
+
 Our code is built upon [DP3](https://github.com/YanjieZe/3D-Diffusion-Policy), [DRO-Grasp](https://github.com/zhenyuwei2003/DRO-Grasp), [FoundationPose](https://github.com/NVlabs/FoundationPose). We thank all these authors for their nicely open sourced code and their great contributions to the community.
 
 
@@ -467,6 +467,3 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
   year={2025}
 }
 ```
-
-
-

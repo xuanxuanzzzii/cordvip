@@ -1,5 +1,4 @@
 policy:
-  _target_: co_diffusion_policy.policy.CoDP_pretrain.CoDP_Pretrain
   use_point_crop: true
   condition_type: film
   use_down_condition: true

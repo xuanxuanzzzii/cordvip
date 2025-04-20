@@ -21,6 +21,7 @@ from utils.hand_model import create_hand_model
 import copy
 from geometry_msgs.msg import Pose
 from scipy.spatial.transform import Rotation as R
+import argparse
 
 if HAND_TYPE is not None:
     hand_module = __import__("holodex.robot.hand")
@@ -35,7 +36,7 @@ if ARM_TYPE is not None:
 
 
 class RobotEnv:
-    def __init__(self):
+    def __init__(self,ckpt_dir="../policy/act_3d_ours/checkpoints/"):
         rospy.init_node("eval_policy_lift3d_node", anonymous=True)
         rospy.Subscriber(OBJECT_POSE_TOPIC, Pose, self._callback_object_pose, queue_size = 1)
         print("RobotEnv")
@@ -48,7 +49,7 @@ class RobotEnv:
             self.hand.home_robot()
             time.sleep(0.1)
         time.sleep(5)
-     
+        self.ckpt_dir = ckpt_dir
         self.num_cams = 1
         self.episode_steps = 750
         self.object_pose = None
@@ -144,7 +145,7 @@ class RobotEnv:
         hand_joint_positions = np.array(self.hand.get_hand_position())
         joint_state = np.concatenate([hand_joint_positions, arm_joint_positions])
 
-        ckpt_dir = "../policy/act_3d_ours/checkpoints/" # todo: task_name
+        ckpt_dir = self.ckpt_dir
         stats_path = os.path.join(ckpt_dir, f'dataset_stats.pkl')
         with open(stats_path, 'rb') as f:
             stats = pickle.load(f)
@@ -211,7 +212,7 @@ class RobotEnv:
         return hand_pc, object_pc, joint_state
 
     def send_control_command(self, action):
-        ckpt_dir = "../policy/act_3d_ours/checkpoints/" # todo: task_name
+        ckpt_dir = self.ckpt_dir
         stats_path = os.path.join(ckpt_dir, f'dataset_stats.pkl')
         with open(stats_path, 'rb') as f:
             stats = pickle.load(f)
@@ -235,11 +236,12 @@ class RobotEnv:
 
 
 class ACT:
-    def __init__(self):
+    def __init__(self,ckpt_dir="../policy/act_3d_ours/checkpoints/"):
         self.model = self.load_model()
+        self.ckpt_dir = ckpt_dir
         
     def load_model(self):
-        model = get_policy()
+        model = get_policy(self.ckpt_dir)
         print("Model weights loaded successfully.")
         return model
 
@@ -252,18 +254,19 @@ class ACT:
 
         return output
 
-
-def test_policy(RobotEnv_class, act_model:ACT):
-    env_instance = RobotEnv_class()  
-    
-    env_instance.apply_act(act_model) 
-
+def test_policy(RobotEnv_class, act_model: ACT, ckpt_dir=None):
+    env_instance = RobotEnv_class(ckpt_dir=ckpt_dir) 
+    env_instance.apply_act(act_model)
     env_instance.close()
 
-def main():
-    act_model = ACT()
-    test_policy(RobotEnv, act_model)
-
+def main(ckpt_dir=None):
+    act_model = ACT(ckpt_dir=ckpt_dir)
+    test_policy(RobotEnv, act_model, ckpt_dir=ckpt_dir)
 
 if __name__ == "__main__":
-    main()
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--dir', type=str, default="../policy/act_3d_ours/checkpoints/",
+                       help='Directory containing checkpoint and stats files')
+    args = parser.parse_args()
+
+    main(ckpt_dir=args.dir)

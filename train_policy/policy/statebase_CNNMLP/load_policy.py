@@ -11,14 +11,14 @@ def make_policy(policy_class, policy_config):
         raise NotImplementedError
     return policy
 
-def get_policy():
+def get_policy(ckpt_dir="../policy/act_3d_ours/checkpoints/"):
     state_dim = 28
     lr_backbone = 1e-5
     backbone = 'resnet18'
     enc_layers = 4
     dec_layers = 7
     nheads = 8
-    ckpt_dir = " " #checkpoint文件根目录
+    ckpt_dir = ckpt_dir
     ckpt_path = os.path.join(ckpt_dir, 'policy_epoch_5000_seed_0.ckpt') #checkpoint文件路径
     policy_class = 'ACT'
     policy_config = {'lr': 10e-5,

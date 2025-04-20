@@ -12,7 +12,7 @@ NUM_EPOCHS=6000
 LR=10e-5
 SEED=0
 IF_TRAIN=true
-PRETRAIN_CKPT_DIR="/home/fqx/RoboTwin/policy/CoDP/CoDP/checkpoints/CoDP_Pretrain_pointnet_all_tasks_5hz_4/2000.ckpt"
+PRETRAIN_CKPT_DIR="" # load the pretrain encoder in step1
 CONFIG_PATH="/home/fqx/code_release/policy/act_3d_ours/detr/models/encoder.yaml"
 
 python imitate_episodes.py \
