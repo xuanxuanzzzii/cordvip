@@ -21,10 +21,10 @@ def main():
     task_name = args.task_name
     num = args.episode_number
     
-    load_dir = f'/home/fqx/expert_dataset_new/{task_name}/recorded_data'
+    load_dir = f'./expert_dataset/{task_name}/recorded_data'
     total_count = 0
 
-    save_dir = f'./policy/Diffusion-Policy_copy/data/{task_name}_{num}.zarr'
+    save_dir = f'./policy/statebase_Diffusion-Policy/data/{task_name}_{num}.zarr'
 
     if os.path.exists(save_dir):
         shutil.rmtree(save_dir)

@@ -256,14 +256,11 @@ def test_policy(RobotEnv_class, act_model: ACT, ckpt_dir=None):
     env_instance.apply_act(act_model)
     env_instance.close()
 
-def main(ckpt_dir=None):
+def main():
+    ckpt_dir = "" #todo
+    # for example: ckpt_dir = ../policy/act_3d/checkpoints/assembly
     act_model = ACT(ckpt_dir=ckpt_dir)
     test_policy(RobotEnv, act_model, ckpt_dir=ckpt_dir)
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser()
-    parser.add_argument('--dir', type=str, default="../policy/act_3d_ours/checkpoints/",
-                       help='Directory containing checkpoint and stats files')
-    args = parser.parse_args()
-
-    main(ckpt_dir=args.dir)
+    main()

@@ -130,14 +130,12 @@ class RobotEnv:
                 self.send_control_command(current_action) 
                 observation = self.get_observation()
                 CordViP.update_obs(observation)
-                # self.view_control.set_lookat([-0.1, -0.7, 0.3])  # 设置摄像机的目标位置
-                # self.view_control.set_up([0, 1, 0])      # 设置摄像机的上方向（通常为 [0, 1, 0]）
-                # self.view_control.set_front([0, -0.5, 0.5])  # 设置摄像机的朝向
+               
                 self.vis.poll_events()
                 self.vis.update_renderer()
         
             cnt += action.shape[0]
-        end_time = time.time()  # 记录结束时间
+        end_time = time.time()  
         total_time = end_time - start_time    
         print(f"Total time for completing {self.episode_steps} steps: {total_time:.2f} seconds.") 
      
@@ -234,7 +232,6 @@ class RobotEnv:
         rospy.loginfo(f"Control commands sent: Arm: {arm_position}, Hand: {hand_position}")
     
     def close(self):
-        # 关闭 ROS 节点
         rospy.signal_shutdown("Task complete")
         print("Shutting down ROS node.")
 

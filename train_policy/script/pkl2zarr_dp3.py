@@ -23,7 +23,7 @@ def main():
     num = args.episode_number
     current_ep = 0
     
-    load_dir = f'/home/fqx/expert_dataset_new/{task_name}/recorded_data'
+    load_dir = f'./expert_dataset/{task_name}/recorded_data'
     
     total_count = 0
 

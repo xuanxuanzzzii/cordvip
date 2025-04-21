@@ -21,7 +21,7 @@ def main():
     task_name = args.task_name
     num = args.episode_number
     
-    load_dir = f'/home/fqx/expert_dataset_new/{task_name}/recorded_data'
+    load_dir = f'./expert_dataset/{task_name}/recorded_data'
     total_count = 0
 
     save_dir = f'./policy/Diffusion-Policy/data/{task_name}_{num}.zarr'

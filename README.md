@@ -75,6 +75,7 @@ pip install pytorch_kinematics==0.7.4
 
 
 
+
 ```bash
 conda create -n CordViP python=3.8
 conda activate CordViP
@@ -90,6 +91,7 @@ cd act/detr && pip install -e .
 
 <details>
 <summary>2. Install pytorch3d</summary>
+
 
 
 
@@ -210,8 +212,8 @@ sh eval.sh ${task_name} ${expert_data_num} ${checkpoint_num} ${seed} ${gpu_id} $
 🪄**Transformer-based**
 
 ```bash
-python eval_policy_act_3d_ours.py --dir ${dir} --ckpt_dir ${ckpt_dir} --policy_class ${policy_class} --task_name ${task_name} --seed ${seed} --num_epochs ${num_epochs}
-# As example: python eval_policy_act_3d_ours.py --dir ../policy/act_3d_ours/checkpoints/assembly --ckpt_dir ../policy/act_3d_ours/checkpoints/assembly --policy_class ACT --task_name assembly --seed 0 --num_epochs 2000
+python eval_policy_act_3d_ours.py --ckpt_dir ${ckpt_dir} --policy_class ${policy_class} --task_name ${task_name} --seed ${seed} --num_epochs ${num_epochs}
+# As example: python eval_policy_act_3d_ours.py --ckpt_dir ../policy/act_3d_ours/checkpoints/assembly --policy_class ACT --task_name assembly --seed 0 --num_epochs 2000
 ```
 
 
@@ -358,8 +360,8 @@ sh train.sh
 Run the following code to evaluate ACT for a specific task:
 
 ```bash
-python eval_policy_act.py --dir ${dir} --ckpt_dir ${ckpt_dir} --policy_class ${policy_class} --task_name ${task_name} --seed ${seed} --num_epochs ${num_epochs}
-# As example: python eval_policy_act.py --dir ../policy/act/checkpoints/assembly --ckpt_dir ../policy/act/checkpoints/assembly --policy_class ACT --task_name assembly --seed 0 --num_epochs 2000
+python eval_policy_act.py --ckpt_dir ${ckpt_dir} --policy_class ${policy_class} --task_name ${task_name} --seed ${seed} --num_epochs ${num_epochs}
+# As example: python eval_policy_act.py --ckpt_dir ../policy/act/checkpoints/assembly --policy_class ACT --task_name assembly --seed 0 --num_epochs 2000
 ```
 
 ## 6. ACT 3D
@@ -389,8 +391,8 @@ sh train.sh
 Run the following code to evaluate ACT 3D for a specific task:
 
 ```bash
-python eval_policy_act_3d.py --dir ${dir} --ckpt_dir ${ckpt_dir} --policy_class ${policy_class} --task_name ${task_name} --seed ${seed} --num_epochs ${num_epochs}
-# As example: python eval_policy_act_3d.py --dir ../policy/act+3d/checkpoints/assembly --ckpt_dir ../policy/act+3d/checkpoints/assembly --policy_class ACT --task_name assembly --seed 0 --num_epochs 2000
+python eval_policy_act_3d.py --ckpt_dir ${ckpt_dir} --policy_class ${policy_class} --task_name ${task_name} --seed ${seed} --num_epochs ${num_epochs}
+# As example: python eval_policy_act_3d.py --ckpt_dir ../policy/act+3d/checkpoints/assembly --policy_class ACT --task_name assembly --seed 0 --num_epochs 2000
 ```
 
 ## 7. State-base Diffusion Policy
@@ -444,8 +446,8 @@ sh train.sh
 Run the following code to evaluate state-base cnnmlp for a specific task:
 
 ```bash
-python eval_policy_mlp.py --dir ${dir} --ckpt_dir ${ckpt_dir} --policy_class ${policy_class} --task_name ${task_name} --seed ${seed} --num_epochs ${num_epochs}
-# As example: python eval_policy_mlp.py --dir ../policy/statebase_CNNMLP/checkpoints/assembly --ckpt_dir ../policy/statebase_CNNMLP/checkpoints/assembly --policy_class CNNMLP --task_name flip_cap --seed 0 --num_epoch 900
+python eval_policy_mlp.py --ckpt_dir ${ckpt_dir} --policy_class ${policy_class} --task_name ${task_name} --seed ${seed} --num_epochs ${num_epochs}
+# As example: python eval_policy_mlp.py --ckpt_dir ../policy/statebase_CNNMLP/checkpoints/assembly --policy_class CNNMLP --task_name flip_cap --seed 0 --num_epoch 900
 ```
 
 ## 🙏 Acknowledgement
@@ -467,3 +469,4 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
   year={2025}
 }
 ```
+

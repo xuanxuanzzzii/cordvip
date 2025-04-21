@@ -148,7 +148,6 @@ class RobotEnv:
         rospy.loginfo(f"Control commands sent: Arm: {arm_position}, Hand: {hand_position}")
     
     def close(self):
-        # 关闭 ROS 节点
         rospy.signal_shutdown("Task complete")
         print("Shutting down ROS node.")
 

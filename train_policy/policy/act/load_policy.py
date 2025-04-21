@@ -11,7 +11,7 @@ def make_policy(policy_class, policy_config):
         raise NotImplementedError
     return policy
 
-def get_policy(ckpt_dir="../policy/act_3d_ours/checkpoints/"):
+def get_policy(ckpt_dir="../policy/act/checkpoints/assembly"):
     state_dim = 22
     lr_backbone = 1e-5
     backbone = 'resnet18'
