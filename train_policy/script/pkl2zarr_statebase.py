@@ -44,35 +44,34 @@ def main():
         file_num = 0
         
         while os.path.exists(load_dir+f'/demonstration_{current_ep}'+f'/{file_num}') and file_num < num_files:
-            if file_num % 2 == 0:
-                with open(load_dir+f'/demonstration_{current_ep}'+f'/{file_num}', 'rb') as file:
-                    data = pickle.load(file)
-                
-                img = data['camera_1_color_use_image']
-                img = img[:, : ,[2,1,0]] 
-                
-                hand_joint_positions = np.array(data['hand_joint_positions'])  
-                arm_joint_positions = np.array(data['arm_joint_positions']) 
-                # print(data.keys())
-                pos_6d = np.array(data['pose']) 
-                pos_6d_2 = np.array(data['pose_2']) 
-                joint_state = np.concatenate([hand_joint_positions, arm_joint_positions, pos_6d, pos_6d_2])
+            with open(load_dir+f'/demonstration_{current_ep}'+f'/{file_num}', 'rb') as file:
+                data = pickle.load(file)
+            
+            img = data['camera_1_color_use_image']
+            img = img[:, : ,[2,1,0]] 
+            
+            hand_joint_positions = np.array(data['hand_joint_positions'])  
+            arm_joint_positions = np.array(data['arm_joint_positions']) 
+            # print(data.keys())
+            pos_6d = np.array(data['pose']) 
+            pos_6d_2 = np.array(data['pose_2']) 
+            joint_state = np.concatenate([hand_joint_positions, arm_joint_positions, pos_6d, pos_6d_2])
 
-                if file_num + 2 < num_files:
-                    next_data = pickle.load(open(load_dir + f'/demonstration_{current_ep}' + f'/{file_num + 2}', 'rb'))
-                    hand_commanded_joint_position = np.array(next_data['hand_joint_positions'])
-                    arm_commanded = np.array(next_data['arm_joint_positions'])
-                else:
-                    hand_commanded_joint_position = np.array(data['hand_joint_positions'])
-                    arm_commanded = np.array(data['arm_joint_positions'])
+            if file_num + 1 < num_files:
+                next_data = pickle.load(open(load_dir + f'/demonstration_{current_ep}' + f'/{file_num + 2}', 'rb'))
+                hand_commanded_joint_position = np.array(next_data['hand_joint_positions'])
+                arm_commanded = np.array(next_data['arm_joint_positions'])
+            else:
+                hand_commanded_joint_position = np.array(data['hand_joint_positions'])
+                arm_commanded = np.array(data['arm_joint_positions'])
 
-                joint_action = np.concatenate([hand_commanded_joint_position, arm_commanded])
-                
-                img_arrays.append(img)
-                joint_state_arrays.append(joint_state)
-                joint_action_arrays.append(joint_action)
-                
-                total_count += 1
+            joint_action = np.concatenate([hand_commanded_joint_position, arm_commanded])
+            
+            img_arrays.append(img)
+            joint_state_arrays.append(joint_state)
+            joint_action_arrays.append(joint_action)
+            
+            total_count += 1
 
             file_num += 1
 
