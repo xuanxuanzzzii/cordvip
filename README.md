@@ -12,7 +12,7 @@
 We propose **CordViP**🤖, a correspondence-based visuomotor policy for dexterous manipulation in the real world.
 
 ## ✨ News ✨
-
+- [2025/4/21] The code has been released! 🛠️ 
 - [2025/4/11] CordViP has been accepted to RSS 2025! 🎉
 - [2025/2/13] CordViP is now live on arXiv! 🚀 
 
@@ -79,7 +79,7 @@ pip install pytorch_kinematics==0.7.4
 ```bash
 conda create -n CordViP python=3.8
 conda activate CordViP
-cd CordViP_code/train_policy
+cd cordvip/train_policy
 pip install torch==2.4.0 torchvision==0.19.0 torchaudio==2.4.0 --index-url https://download.pytorch.org/whl/cu118
 
 pip install sapien==3.0.0b1 scipy==1.10.1 mplib==0.1.1 gymnasium==0.29.1 trimesh==4.4.3 open3d==0.18.0 imageio==2.34.2 pydantic openai huggingface_hub==0.25.0 zarr==2.12.0 wandb ipdb gpustat dm_control omegaconf hydra-core==1.2.0 dill==0.3.5.1 einops==0.4.1 diffusers==0.11.1 numba==0.56.4 moviepy imageio av matplotlib termcolor robomimic easydict
@@ -113,13 +113,13 @@ In our real-world setup, our system consists of a Leap Hand and a UR5 Arm, with 
 
 ### Point Cloud Generation.
 
-Our method use FoundationPose and D(R,O) Grasp to track pose. 
+Our method use FoundationPose and Point Cloud Forward Kinematics to track pose. 
 
 **1. Use TripoSR to generate object mesh.**  
 
 refer to: https://github.com/VAST-AI-Research/TripoSR
 
-**2. Use FoundationPose and D(R,O) Grasp to track pose..**  
+**2. Use FoundationPose and Point Cloud Forward Kinematics to track pose..**  
 
 1. Download all network weights from [here](https://drive.google.com/drive/folders/1DFezOAD0oD1BblsXVxqDsl8fj0qzB82i?usp=sharing) and put them under the folder `generate_pc/FoundationPose/weights/`. For the refiner, you will need `2023-10-28-18-33-37`. For scorer, you will need `2024-01-11-20-02-45`.
 
