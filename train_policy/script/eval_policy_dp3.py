@@ -205,7 +205,7 @@ class RobotEnv:
         if image is not None and depth is not None:
             point_cloud = self.generate_point_cloud(image, depth)
             point_cloud = self.preprocess_point_cloud(point_cloud)
-        return {'point_cloud': point_cloud[:3], 'joint_state': joint_state}
+        return {'point_cloud': point_cloud[:, :3], 'joint_state': joint_state}
     
     def send_control_command(self, action):
         hand_position = action[:16] 
