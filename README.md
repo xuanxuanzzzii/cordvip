@@ -153,7 +153,7 @@ To go through the whole process, there are 3️⃣ necessary steps:
 
 ```bash
 # step1 
-python contact.py ${load_dir} ${num} ${current_ep} ${num_files}
+python script/contact_map.py ${load_dir} ${num} ${current_ep} ${num_files}
 # As example: python contact.py /load_dir 50 0 380
 # step2
 python script/pkl2zarr_cordvip.py ${task_name} ${expert_data_num}
