@@ -22,7 +22,7 @@ We propose **CordViP**🤖, a correspondence-based visuomotor policy for dextero
 
 - **Code For CordViP 📈**: Code for data collection, training, and evaluation **in Real-World**. 
 - **CordViP Model** 🎯:  We provide a [pretrained checkpoint](https://huggingface.co/FengQiuxuan/CordViP) that is trained on **our self-collected data**.
-- **Real-World Dataset** 🎯:  We provide real-world data for the task of  [flipcap](https://huggingface.co/datasets/FengQiuxuan/CordViP) , which can be used as a reference for the data format.
+- **Real-World Dataset** 🎯:  We provide real-world data for the task of  [flipcap](https://huggingface.co/datasets/FengQiuxuan/CordViP) and [flipcup](https://huggingface.co/datasets/Auroraky/CordViP_flipcup) , which can be used as a reference for the data format.
 - **2D and 3D Baseline Methods 🛠️**: Provides standard 2D and 3D baseline methods for comparison:
   - **2D Baseline**: [Diffusion Policy](https://diffusion-policy.cs.columbia.edu/), [act](https://github.com/tonyzhaozh/act/tree/main), [BCRNN](https://robomimic.github.io/)
   - **3D Baseline**: [3D Diffusion Policy](https://3d-diffusion-policy.github.io/), [act 3D](https://github.com/tonyzhaozh/act/tree/main), [BCRNN 3D](https://robomimic.github.io/)
