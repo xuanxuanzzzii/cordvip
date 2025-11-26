@@ -14,7 +14,7 @@ import torch
 import dill
 from omegaconf import OmegaConf
 import pathlib
-from train import TrainCordViPWorkspace
+from load_pretrain import TrainCordViPWorkspace
 import pdb
 
 OmegaConf.register_new_resolver("eval", eval, replace=True)
